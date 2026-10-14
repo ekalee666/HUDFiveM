@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Fire Speedometer</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Main HUD Wrapper -->
+<div id="hud" class="hidden">
+
+    <!-- Flame particles background -->
+    <div class="flames-bg">
+        <div class="flame f1"></div>
+        <div class="flame f2"></div>
+        <div class="flame f3"></div>
+        <div class="flame f4"></div>
+        <div class="flame f5"></div>
+        <div class="flame f6"></div>
+    </div>
+
+    <!-- RPM Bar (vertical, left side) -->
+    <div class="rpm-bar-wrap">
+        <div class="rpm-label">RPM</div>
+        <div class="rpm-track">
+            <div id="rpm-fill" class="rpm-fill"></div>
+        </div>
+    </div>
+
+    <!-- Center Panel -->
+    <div class="center-panel">
+
+        <!-- Gear -->
+        <div id="gear-display" class="gear-display">1</div>
+
+        <!-- Speed Number -->
+        <div class="speed-wrap">
+            <span id="speed-value" class="speed-value">0</span>
+            <span id="speed-unit" class="speed-unit">KPH</span>
+        </div>
+
+        <!-- Unit Toggle -->
+        <div class="unit-toggle">
+            <span id="btn-kph" class="unit-btn active" onclick="setUnit('KPH')">KPH</span>
+            <span class="unit-sep">|</span>
+            <span id="btn-mph" class="unit-btn" onclick="setUnit('MPH')">MPH</span>
+        </div>
+
+        <!-- Circular RPM Arc (SVG) -->
+        <svg class="rpm-arc" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background arc -->
+            <path id="arc-bg" d="M10,100 A90,90 0 0,1 190,100" fill="none" stroke="#2a1500" stroke-width="10" stroke-linecap="round"/>
+            <!-- Active arc -->
+            <path id="arc-fill" d="M10,100 A90,90 0 0,1 190,100" fill="none" stroke="url(#fireGrad)" stroke-width="10" stroke-linecap="round"
+                  stroke-dasharray="283" stroke-dashoffset="283"/>
+            <defs>
+                <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="#ff2200"/>
+                    <stop offset="50%"  stop-color="#ff6600"/>
+                    <stop offset="100%" stop-color="#ffcc00"/>
+                </linearGradient>
+            </defs>
+        </svg>
+
+    </div>
+
+    <!-- Right panel: Fuel & Engine -->
+    <div class="right-panel">
+
+        <!-- Boost indicator -->
+        <div id="boost-indicator" class="boost-indicator">
+            <span class="boost-icon">🔥</span>
+            <span>BOOST</span>
+        </div>
+
+        <!-- Fuel -->
+        <div class="info-row">
+            <span class="info-icon">⛽</span>
+            <div class="bar-wrap">
+                <div class="bar-label">FUEL</div>
+                <div class="bar-track">
+                    <div id="fuel-bar" class="bar-fill fuel-fill"></div>
+                </div>
+                <span id="fuel-pct" class="bar-pct">100%</span>
+            </div>
+        </div>
+
+        <!-- Engine Health -->
+        <div class="info-row">
+            <span class="info-icon">🔧</span>
+            <div class="bar-wrap">
+                <div class="bar-label">ENGINE</div>
+                <div class="bar-track">
+                    <div id="engine-bar" class="bar-fill engine-fill"></div>
+                </div>
+                <span id="engine-pct" class="bar-pct">100%</span>
+            </div>
+        </div>
+
+        <!-- Engine Status -->
+        <div class="engine-status-row">
+            <span class="status-label">ENGINE</span>
+            <span id="engine-status" class="status-dot off"></span>
+            <span id="engine-text" class="status-text">OFF</span>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
